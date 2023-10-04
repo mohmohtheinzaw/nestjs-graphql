@@ -1,0 +1,55 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Login Input"""
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+"""Login Result"""
+type LoginResult {
+  token: String!
+  user: UserModel!
+}
+
+type Mutation {
+  loginUser(dto: LoginInput!): LoginResult!
+  registerUser(userDto: RegisterUserInput!): UserModel!
+}
+
+"""pagination input"""
+input PaginationInput {
+  page: Float!
+  perPage: Float!
+}
+
+type Query {
+  getUser(id: String!): UserModel!
+  paginationUser(dto: PaginationInput!): [UserModel!]!
+  searchUser(text: String!): [UserModel!]!
+}
+
+"""create user input"""
+input RegisterUserInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+"""User Model"""
+type UserModel {
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  isActive: Boolean!
+  password: String!
+  updatedAt: DateTime!
+  username: String!
+}
