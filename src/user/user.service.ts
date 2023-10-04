@@ -60,6 +60,16 @@ export class UserService {
 
     }
 
+
+    // const pagination = {
+    //             lastPage: totalPages,
+    //             perPage,
+    //             currentPage: page,
+    //             total: totalCount,
+    //             count: users.length
+    //         }
+
+
     async update(dto:UpdateUserInput):Promise<UserModel>{
         return this.prismaService.user.update({
             where:{id:dto.id},
@@ -67,6 +77,17 @@ export class UserService {
                 username:dto.username,
                 email:dto.email
             }
+        }).then((data)=>{
+            return data
+        }).catch((error)=>{
+            return error
+        })
+    }
+
+
+    async delete(id:string):Promise<UserModel>{
+        return this.prismaService.user.delete({
+            where:{id}
         }).then((data)=>{
             return data
         }).catch((error)=>{
