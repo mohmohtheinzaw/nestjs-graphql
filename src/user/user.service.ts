@@ -1,6 +1,6 @@
 import { PrismaService } from '@app/prisma.service';
 import { Injectable } from '@nestjs/common';
-import {  PaginationInput, UpdateUserInput } from './user.dto';
+import {  PaginationInput, PaginationResponse, UpdateUserInput } from './user.dto';
 import { UserModel } from '@app/models/user.model';
 
 @Injectable()
@@ -42,10 +42,10 @@ export class UserService {
         })
     }
 
-    async pagination(dto:PaginationInput):Promise<UserModel[]>{
+    async pagination(dto:PaginationInput):Promise<PaginationResponse>{
         const page: number = dto.page || 1
         const perPage: number = dto.perPage || 10
-
+        const totalCount = await this.prismaService.user.count()
         return this.prismaService.user.findMany({
             take: perPage,
             skip: perPage * (page - 1),
@@ -53,7 +53,7 @@ export class UserService {
                 createdAt:'desc'
             }
         }).then((data)=>{
-            return data
+            return {data,totalCount}
         }).catch((error)=>{
             return error
         })

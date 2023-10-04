@@ -1,4 +1,6 @@
-import { Field, ID, InputType } from '@nestjs/graphql';
+import { UserModel } from '@app/models/user.model';
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+import { clearScreenDown } from 'readline';
 
 @InputType({description: 'create new user input'})
 export class CreateUserInput {
@@ -31,4 +33,14 @@ export class PaginationInput {
 
     @Field(()=>Number)
     perPage: number;
+}
+
+
+@ObjectType({description:"pagination response"})
+export class PaginationResponse{
+    @Field(()=>[UserModel])
+    data:[UserModel] ;
+
+    @Field(()=>Number)
+    totalCount: number;
 }

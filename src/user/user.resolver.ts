@@ -1,7 +1,7 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { UserModel } from '@app/models/user.model';
-import { PaginationInput } from './user.dto';
+import { PaginationInput, PaginationResponse } from './user.dto';
 
 @Resolver()
 export class UserResolver {
@@ -17,11 +17,11 @@ export class UserResolver {
     return this.userService.search(text);
   }
 
-  @Query(() => [UserModel])
+  @Query(() =>PaginationResponse)
   async paginationUser(
     @Args('dto') dto: PaginationInput,
-  ): Promise<UserModel[]> {
+  ): Promise<PaginationResponse> {
     return this.userService.pagination(dto);
   }
-  
+
 }

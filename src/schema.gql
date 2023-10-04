@@ -30,9 +30,15 @@ input PaginationInput {
   perPage: Float!
 }
 
+"""pagination response"""
+type PaginationResponse {
+  data: [UserModel!]!
+  totalCount: Float!
+}
+
 type Query {
   getUser(id: String!): UserModel!
-  paginationUser(dto: PaginationInput!): [UserModel!]!
+  paginationUser(dto: PaginationInput!): PaginationResponse!
   searchUser(text: String!): [UserModel!]!
 }
 
